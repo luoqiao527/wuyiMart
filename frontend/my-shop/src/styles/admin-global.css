@@ -1,0 +1,157 @@
+/* =========================================================
+   文件位置：src/styles/admin-global.css
+   作用：管理后台全局样式优化（高级极简画廊风）
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap');
+
+/* 1. 基础页面重置 */
+body,
+html,
+#root {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    /* 使用暖浅灰，让纯白色的卡片更凸显 */
+    background-color: #faf9f7 !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* =========================================================
+   2. 核心主题色强制覆盖 (消灭默认的蓝色 #1890ff，改为极简黑 #1a1a1a)
+========================================================= */
+
+/* 侧边栏菜单选中状态 (浅灰背景，黑色文字) */
+.ant-menu-light .ant-menu-item-selected {
+    background-color: #f5f5f5 !important;
+    color: #1a1a1a !important;
+    font-weight: 600;
+    border-radius: 8px !important;
+    /* 菜单项圆角 */
+}
+
+.ant-menu-light .ant-menu-item:hover,
+.ant-menu-light .ant-menu-submenu-title:hover {
+    color: #1a1a1a !important;
+}
+
+/* 主按钮 (Primary Button) 变黑 */
+.ant-btn-primary {
+    background-color: #1a1a1a !important;
+    border-color: #1a1a1a !important;
+    border-radius: 6px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.ant-btn-primary:hover {
+    background-color: #333333 !important;
+    border-color: #333333 !important;
+}
+
+/* Tabs 标签页下划线变黑 */
+.ant-tabs-ink-bar {
+    background: #1a1a1a !important;
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #1a1a1a !important;
+    font-weight: 600 !important;
+}
+
+.ant-tabs-tab:hover {
+    color: #333 !important;
+}
+
+
+/* =========================================================
+   3. 组件外框美化 (圆角、阴影)
+========================================================= */
+
+/* 卡片 (Card) 优化 */
+.ant-card {
+    border-radius: 16px !important;
+    /* 大圆角 */
+    border: none !important;
+    /* 砍掉边框 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
+    /* 非常淡的高级阴影 */
+    transition: all 0.3s ease;
+}
+
+/* 表格 (Table) 整体美化 */
+.ant-table-wrapper {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* 表头变干净，去掉难看的边框 */
+.ant-table-thead>tr>th {
+    font-weight: 600 !important;
+    background-color: #faf9f7 !important;
+    color: #666 !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.ant-table-tbody>tr>td {
+    border-bottom: 1px solid #f9f9f9 !important;
+    /* 极细极淡的分割线 */
+}
+
+.ant-table-tbody>tr.ant-table-row:hover>td {
+    background-color: #fafafa !important;
+    /* 悬浮颜色变淡 */
+}
+
+
+/* =========================================================
+   4. 细节优化
+========================================================= */
+
+/* 描述列表优化 (针对审核详情页) */
+.ant-descriptions-bordered .ant-descriptions-view {
+    border-radius: 12px !important;
+    overflow: hidden;
+    border-color: #f0f0f0 !important;
+}
+
+.ant-descriptions-item-label {
+    background-color: #faf9f7 !important;
+    color: #666 !important;
+}
+
+/* 滚动条全局美化 */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d9d9d9;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #bfbfbf;
+}
+
+/* 图片预留位占位符 (如果有用到) */
+.image-placeholder {
+    background: #faf9f7;
+    border: 1px dashed #e0e0e0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    transition: all 0.3s;
+}
+
+.image-placeholder:hover {
+    border-color: #1a1a1a;
+    color: #1a1a1a;
+}
