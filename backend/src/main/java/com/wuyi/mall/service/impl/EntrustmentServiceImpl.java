@@ -24,7 +24,7 @@ public class EntrustmentServiceImpl implements EntrustmentService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void submitEntrustment(Entrustment entrustment, Long userId) {
+    public Long submitEntrustment(Entrustment entrustment, Long userId) {
         // 1. 初始化基础数据
         entrustment.setUserId(userId);
         entrustment.setStatus(0); // 0-待处理
@@ -57,6 +57,9 @@ public class EntrustmentServiceImpl implements EntrustmentService {
                 System.err.println("AI 异步计算图文匹配度失败: " + e.getMessage());
             }
         });
+        
+        // 返回新增委托记录的主键 ID
+        return entrustment.getId();
     }
 
     @Override

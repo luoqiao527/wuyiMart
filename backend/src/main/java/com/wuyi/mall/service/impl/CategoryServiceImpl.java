@@ -38,7 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void applyCategory(String name, Long merchantId) {
+    public Long applyCategory(String name, Long merchantId) {
         checkCategoryNameExist(name);
 
         Category category = new Category();
@@ -47,11 +47,14 @@ public class CategoryServiceImpl implements CategoryService {
         category.setAuditStatus(0); // 0-待审核
 
         categoryMapper.insert(category);
+        
+        // 返回新增分类的主键 ID
+        return category.getId();
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void addCategoryDirectly(String name) {
+    public Long addCategoryDirectly(String name) {
         checkCategoryNameExist(name);
 
         Category category = new Category();
@@ -60,6 +63,9 @@ public class CategoryServiceImpl implements CategoryService {
         category.setAuditStatus(1); // 直接生效
 
         categoryMapper.insert(category);
+        
+        // 返回新增分类的主键 ID
+        return category.getId();
     }
 
     @Override

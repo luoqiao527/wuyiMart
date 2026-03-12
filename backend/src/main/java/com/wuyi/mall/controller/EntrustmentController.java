@@ -25,15 +25,15 @@ public class EntrustmentController {
      * 用户提交委托售卖申请
      */
     @PostMapping("/entrustments")
-    public Result<Void> submitEntrustment(@RequestBody Entrustment entrustment,
+    public Result<Long> submitEntrustment(@RequestBody Entrustment entrustment,
                                           @RequestHeader("X-User-Id") Long userId) { // 模拟鉴权获取用户ID
         try {
             // 校验必填项
             if (entrustment.getItemName() == null || entrustment.getImages() == null) {
                 return Result.error("物品名称和照片不能为空");
             }
-            entrustmentService.submitEntrustment(entrustment, userId);
-            return Result.success();
+            Long entrustmentId = entrustmentService.submitEntrustment(entrustment, userId);
+            return Result.success(entrustmentId);
         } catch (Exception e) {
             return Result.error(e.getMessage());
         }

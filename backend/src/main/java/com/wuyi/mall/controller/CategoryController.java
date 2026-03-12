@@ -36,14 +36,15 @@ public class CategoryController {
      * 注意：实际开发中 merchantId 应通过 JWT 拦截器从 HttpServletRequest(ThreadLocal) 中提取
      */
     @PostMapping("/merchant/categories")
-    public Result<Void> applyCategory(@RequestBody Category category, 
-                                      @RequestHeader("X-User-Id") Long merchantId) { 
+    public Result<Long> applyCategory(@RequestBody Map<String, String> params, 
+                                      @RequestHeader("X-User-Id") Long merchantId) { // 这里用 Header 模拟鉴权拦截提取的ID
         try {
-            if (category.getName() == null || category.getName().trim().isEmpty()) {
+            String name = params.get("name");
+            if (name == null || name.trim().isEmpty()) {
                 return Result.error("分类名称不能为空");
             }
-            categoryService.applyCategory(category.getName(), merchantId);
-            return Result.success();
+            Long categoryId = categoryService.applyCategory(name, merchantId);
+            return Result.success(categoryId);
         } catch (Exception e) {
             return Result.error(e.getMessage());
         }
@@ -63,13 +64,10 @@ public class CategoryController {
      * 管理员直接新增一级分类
      */
     @PostMapping("/admin/categories")
-    public Result<Void> addCategoryDirectly(@RequestBody Category category) {
+    public Result<Long> addCategoryDirectly(@RequestBody Map<String, String> params) {
         try {
-            if (category.getName() == null || category.getName().trim().isEmpty()) {
-                return Result.error("分类名称不能为空");
-            }
-            categoryService.addCategoryDirectly(category.getName());
-            return Result.success();
+            Long categoryId = categoryService.addCategoryDirectly(params.get("name"));
+            return Result.success(categoryId);
         } catch (Exception e) {
             return Result.error(e.getMessage());
         }

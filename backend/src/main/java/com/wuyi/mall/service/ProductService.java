@@ -27,8 +27,9 @@ public interface ProductService {
 
     /**
      * 商家提交商品上架申请
+     * @return 新增商品的主键ID
      */
-    void applyProduct(Product product, Long merchantId);
+    Long applyProduct(Product product, Long merchantId);
 
     /**
      * 管理员审核商品

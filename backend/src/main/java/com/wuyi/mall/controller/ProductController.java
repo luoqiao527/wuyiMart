@@ -68,16 +68,15 @@ public class ProductController {
      * 商家提交商品上架申请
      */
     @PostMapping("/merchant/products")
-    public Result<Void> applyProduct(@RequestBody Product product,
+    public Result<Long> applyProduct(@RequestBody Product product,
                                      @RequestHeader("X-User-Id") Long merchantId) {
         try {
-            productService.applyProduct(product, merchantId);
-            return Result.success();
+            Long productId = productService.applyProduct(product, merchantId);
+            return Result.success(productId);
         } catch (Exception e) {
             return Result.error(e.getMessage());
         }
     }
-
 
     // ================== 管理员端接口 ==================
 

@@ -40,10 +40,10 @@ public class AuthController {
      * 普通用户注册
      */
     @PostMapping("/register/user")
-    public Result<Void> registerUser(@RequestBody UserRegisterDTO registerDTO) {
+    public Result<Long> registerUser(@RequestBody UserRegisterDTO registerDTO) {
         try {
-            authService.registerUser(registerDTO);
-            return Result.success();
+            Long userId = authService.registerUser(registerDTO);
+            return Result.success(userId);
         } catch (Exception e) {
             return Result.error(e.getMessage());
         }
@@ -53,10 +53,10 @@ public class AuthController {
      * 商家入驻注册
      */
     @PostMapping("/register/merchant")
-    public Result<Void> registerMerchant(@RequestBody MerchantRegisterDTO registerDTO) {
+    public Result<Long> registerMerchant(@RequestBody MerchantRegisterDTO registerDTO) {
         try {
-            authService.registerMerchant(registerDTO);
-            return Result.success();
+            Long userId = authService.registerMerchant(registerDTO);
+            return Result.success(userId);
         } catch (Exception e) {
             return Result.error(e.getMessage());
         }

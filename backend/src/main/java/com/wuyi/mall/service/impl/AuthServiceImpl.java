@@ -56,6 +56,7 @@ public class AuthServiceImpl implements AuthService {
 
         // 5. 封装返回结果
         Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("id", user.getId()); // 新增：返回用户主键ID
         resultMap.put("token", token);
         resultMap.put("role", user.getRole()); // 告知前端当前角色 0/1/2
         resultMap.put("username", user.getUsername());
@@ -66,7 +67,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void registerUser(UserRegisterDTO dto) {
+    public Long registerUser(UserRegisterDTO dto) {
         // 1. 检查用户名是否已存在
         checkUsernameExist(dto.getUsername());
 
@@ -82,11 +83,13 @@ public class AuthServiceImpl implements AuthService {
 
         // 3. 存入数据库
         userMapper.insert(user);
+        
+        return user.getId(); // MyBatis-Plus会自动回填主键，直接返回即可
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void registerMerchant(MerchantRegisterDTO dto) {
+    public Long registerMerchant(MerchantRegisterDTO dto) {
         // 1. 检查用户名是否已存在
         checkUsernameExist(dto.getUsername());
 
@@ -111,6 +114,8 @@ public class AuthServiceImpl implements AuthService {
 
         // 存入 merchant_profiles 表
         merchantProfileMapper.insert(profile);
+        
+        return user.getId(); // 返回生成的商家主键
     }
 
     /**

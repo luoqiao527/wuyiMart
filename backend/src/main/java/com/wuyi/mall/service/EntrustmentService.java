@@ -9,8 +9,9 @@ public interface EntrustmentService {
      * 用户提交委托售卖申请 (含异步 AI 调用)
      * @param entrustment 委托详情
      * @param userId 提交人ID
+     * @return 委托单的主键ID
      */
-    void submitEntrustment(Entrustment entrustment, Long userId);
+    Long submitEntrustment(Entrustment entrustment, Long userId);
 
     /**
      * 用户查询自己的委托记录

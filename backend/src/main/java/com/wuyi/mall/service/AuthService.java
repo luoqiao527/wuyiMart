@@ -19,11 +19,13 @@ public interface AuthService {
 
     /**
      * 普通用户注册
+     * @return 新建用户的主键ID
      */
-    void registerUser(UserRegisterDTO registerDTO);
+    Long registerUser(UserRegisterDTO registerDTO);
 
     /**
      * 商家入驻注册
+     * @return 新建商家用户的主键ID
      */
-    void registerMerchant(MerchantRegisterDTO registerDTO);
+    Long registerMerchant(MerchantRegisterDTO registerDTO);
 }

@@ -66,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void applyProduct(Product product, Long merchantId) {
+    public Long applyProduct(Product product, Long merchantId) {
         // 强制绑定当前操作的商家ID，防止越权发布
         product.setMerchantId(merchantId);
         
@@ -78,6 +78,9 @@ public class ProductServiceImpl implements ProductService {
         product.setSaleStatus(0);  // 0-下架 (通过审核后且到开拍时间才算上架/竞拍中)
 
         productMapper.insert(product);
+        
+        // 返回新增商品的主键 ID
+        return product.getId();
     }
 
     @Override

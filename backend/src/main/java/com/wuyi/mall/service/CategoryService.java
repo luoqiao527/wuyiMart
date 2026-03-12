@@ -22,14 +22,16 @@ public interface CategoryService {
      * 商家申请新增分类
      * @param name 分类名称
      * @param merchantId 商家ID
+     * @return 新分类的主键ID
      */
-    void applyCategory(String name, Long merchantId);
+    Long applyCategory(String name, Long merchantId);
 
     /**
      * 管理员直接新增分类
      * @param name 分类名称
+     * @return 新分类的主键ID
      */
-    void addCategoryDirectly(String name);
+    Long addCategoryDirectly(String name);
 
     /**
      * 管理员审核商家提交的分类
