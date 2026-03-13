@@ -1,0 +1,93 @@
+/* =========================================================
+   文件位置：src/styles/art-global.css
+   风格：极简艺术馆风 (Minimalist Art Gallery)
+========================================================= */
+
+/* 1. 基础重置与高级字体 */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@300;400;600&display=swap');
+
+html,
+body,
+#root {
+    background-color: #faf9f7 !important;
+    /* 极浅的米白色，像画纸 */
+    color: #1a1a1a;
+    font-family: 'Playfair Display', 'Noto Serif SC', serif !important;
+    /* 衬线字体带来艺术感 */
+    margin: 0;
+    padding: 0;
+}
+
+/* 2. 覆盖 Ant Design 默认的蓝色，改为克制的纯黑/灰 */
+.ant-btn-primary {
+    background-color: #1a1a1a !important;
+    border-color: #1a1a1a !important;
+    color: #fff !important;
+    border-radius: 2px !important;
+    /* 锐利的直角，去除了默认的圆角 */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.4s ease;
+}
+
+.ant-btn-primary:hover {
+    background-color: #333 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.ant-btn-default {
+    border-radius: 2px !important;
+    border-color: #d9d9d9 !important;
+    color: #1a1a1a !important;
+}
+
+/* 3. 艺术品卡片悬浮效果 */
+.art-card {
+    background: transparent;
+    border: none !important;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.art-card .ant-card-cover img {
+    border-radius: 0 !important;
+    /* 艺术画框不需要圆角 */
+    filter: grayscale(10%);
+    transition: all 0.5s ease;
+}
+
+.art-card:hover .ant-card-cover img {
+    filter: grayscale(0%);
+    transform: scale(1.02);
+}
+
+.art-card .ant-card-body {
+    padding: 16px 0 !important;
+    text-align: center;
+}
+
+.art-price {
+    font-family: Helvetica, sans-serif;
+    /* 价格用无衬线体，形成对比 */
+    font-weight: 300;
+    color: #555;
+    margin-top: 8px;
+}
+
+/* 4. 标题与排版 */
+.art-title {
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 40px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.art-divider {
+    width: 60px;
+    height: 2px;
+    background-color: #1a1a1a;
+    margin: 0 auto 24px auto;
+}
