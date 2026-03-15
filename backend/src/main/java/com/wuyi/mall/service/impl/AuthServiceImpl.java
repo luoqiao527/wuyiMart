@@ -49,7 +49,7 @@ public class AuthServiceImpl implements AuthService {
         if (user.getStatus() == 0) {
             throw new RuntimeException("该账号已被禁用，请联系管理员！");
         }
-        if (merchantProfile.getAuditStatus() == 0) {
+         if (user.getRole() == 1 && merchantProfile.getAuditStatus() == 0) {
             throw new RuntimeException("管理员正在加急审核中，请耐心等待！");
         }
         // 3. 校验密码 (使用 BCrypt 校验)
