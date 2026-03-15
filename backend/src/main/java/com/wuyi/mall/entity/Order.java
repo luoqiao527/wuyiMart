@@ -1,13 +1,21 @@
 package com.wuyi.mall.entity;
 
-import jakarta.persistence.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import javax.persistence.*;
+
 import java.util.Date;
 
+@Data
 @Entity
+@TableName("orders")
 @Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableId(type = IdType.AUTO)
     private Long id;
     
     @Column(name = "order_no", nullable = false, unique = true, length = 64)
@@ -52,6 +60,15 @@ public class Order {
     
     @Column(name = "pay_time")
     private Date payTime;
+    
+    @Column(name = "ship_time")
+    private Date shipTime;
+    
+    @Column(name = "confirm_time")
+    private Date confirmTime;
+    
+    @Column(name = "finish_time")
+    private Date finishTime;
 
     // Getters and Setters
     public Long getId() {

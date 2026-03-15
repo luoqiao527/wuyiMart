@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import javax.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,12 +13,16 @@ import java.time.LocalDateTime;
  * 商品/拍卖品表实体类 (对应数据库表: products)
  */
 @Data
+@Entity
 @TableName("products")
+@Table(name = "products")
 public class Product {
 
     /**
      * 主键
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @TableId(type = IdType.AUTO)
     private Long id;
 

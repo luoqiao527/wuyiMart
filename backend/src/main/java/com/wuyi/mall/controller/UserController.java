@@ -51,7 +51,7 @@ public class UserController {
         String token = authHeader.replace("Bearer ", "");
         Long userId = jwtUtils.getUserIdFromToken(token);
         userService.updatePassword(userId, request.getOldPassword(), request.getNewPassword());
-        return Result.success("密码修改成功");
+        return Result.success("密码修改成功", null);
     }
 
     @GetMapping("/{id}")
@@ -67,7 +67,7 @@ public class UserController {
         user.setId(id);
         user.setStatus(request.getStatus());
         userService.updateById(user);
-        return Result.success("状态更新成功");
+        return Result.success("状态更新成功", null);
     }
 
     @GetMapping

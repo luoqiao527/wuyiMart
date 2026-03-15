@@ -1,7 +1,7 @@
 package com.wuyi.mall.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.wuyi.mall.common.utils.JwtUtils;
+import com.wuyi.mall.utils.JwtUtils;
 import com.wuyi.mall.dto.LoginDTO;
 import com.wuyi.mall.dto.MerchantRegisterDTO;
 import com.wuyi.mall.dto.UserRegisterDTO;

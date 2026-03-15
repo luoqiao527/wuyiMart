@@ -1,13 +1,21 @@
 package com.wuyi.mall.entity;
 
-import jakarta.persistence.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import javax.persistence.*;
+
 import java.util.Date;
 
+@Data
 @Entity
+@TableName("after_sales")
 @Table(name = "after_sales")
 public class AfterSale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableId(type = IdType.AUTO)
     private Long id;
     
     @ManyToOne
