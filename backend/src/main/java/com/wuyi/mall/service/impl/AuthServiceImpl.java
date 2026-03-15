@@ -36,7 +36,11 @@ public class AuthServiceImpl implements AuthService {
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getUsername, loginDTO.getUsername());
         User user = userMapper.selectOne(queryWrapper);
-
+        LambdaQueryWrapper<MerchantProfile> profileWrapper = new LambdaQueryWrapper<>();
+        profileWrapper.eq(MerchantProfile::getUserId, user.getId());
+        
+        // 使用 Mapper 查询出商家档案实体
+        MerchantProfile merchantProfile = merchantProfileMapper.selectOne(profileWrapper);
         if (user == null) {
             throw new RuntimeException("账号不存在！");
         }
@@ -45,7 +49,9 @@ public class AuthServiceImpl implements AuthService {
         if (user.getStatus() == 0) {
             throw new RuntimeException("该账号已被禁用，请联系管理员！");
         }
-
+         if (user.getRole() == 1 && merchantProfile.getAuditStatus() == 0) {
+            throw new RuntimeException("管理员正在加急审核中，请耐心等待！");
+        }
         // 3. 校验密码 (使用 BCrypt 校验)
         if (!BCrypt.checkpw(loginDTO.getPassword(), user.getPassword())) {
             throw new RuntimeException("密码错误！");
@@ -61,7 +67,7 @@ public class AuthServiceImpl implements AuthService {
         resultMap.put("role", user.getRole()); // 告知前端当前角色 0/1/2
         resultMap.put("username", user.getUsername());
         resultMap.put("avatar", user.getAvatar());
-        
+
         return resultMap;
     }
 
@@ -83,7 +89,7 @@ public class AuthServiceImpl implements AuthService {
 
         // 3. 存入数据库
         userMapper.insert(user);
-        
+
         return user.getId(); // MyBatis-Plus会自动回填主键，直接返回即可
     }
 
@@ -101,8 +107,8 @@ public class AuthServiceImpl implements AuthService {
         user.setRealName(dto.getRealName());
         user.setIdCard(dto.getIdCard());
         user.setRole(1); // 1 代表商家
-        user.setStatus(1); 
-        
+        user.setStatus(1);
+
         // 存入 users 表，MyBatis-Plus 会自动将生成的自增主键回填到 user.getId() 中
         userMapper.insert(user);
 
@@ -114,7 +120,7 @@ public class AuthServiceImpl implements AuthService {
 
         // 存入 merchant_profiles 表
         merchantProfileMapper.insert(profile);
-        
+
         return user.getId(); // 返回生成的商家主键
     }
 
