@@ -16,7 +16,11 @@
     </parent>
 
     <properties>
+<<<<<<< HEAD
         <java.version>18</java.version>
+=======
+        <java.version>17</java.version>
+>>>>>>> 86d584441656c1ee113d39e2654666180ef38e13
     </properties>
 
     <dependencies>
@@ -25,6 +29,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+<<<<<<< HEAD
+=======
+        <!-- JPA 依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+>>>>>>> 86d584441656c1ee113d39e2654666180ef38e13
 
         <!-- 阿里云 OSS SDK -->
         <dependency>

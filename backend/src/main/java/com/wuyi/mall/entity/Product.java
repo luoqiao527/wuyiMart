@@ -4,6 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+<<<<<<< HEAD
+=======
+import javax.persistence.*;
+>>>>>>> 86d584441656c1ee113d39e2654666180ef38e13
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,12 +16,23 @@ import java.time.LocalDateTime;
  * 商品/拍卖品表实体类 (对应数据库表: products)
  */
 @Data
+<<<<<<< HEAD
 @TableName("products")
+=======
+@Entity
+@TableName("products")
+@Table(name = "products")
+>>>>>>> 86d584441656c1ee113d39e2654666180ef38e13
 public class Product {
 
     /**
      * 主键
      */
+<<<<<<< HEAD
+=======
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+>>>>>>> 86d584441656c1ee113d39e2654666180ef38e13
     @TableId(type = IdType.AUTO)
     private Long id;
 

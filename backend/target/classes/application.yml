@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    # SQL Server 的连接字符串格式
+    url: jdbc:sqlserver://localhost:1433;databaseName=wuyi_mall;encrypt=false
+    username: sa
+    password: a1228671503
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  # Spring Boot 上传文件大小限制配置
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.wuyi.mall.entity
+
+server:
+  port: 8080
+
+ai:
+  dashscope:
+    api-key: "sk-xxxxxxxxxxxxxxxxxxxxxxxx" # 替换为真实的通义千问API Key
+
+# 缺失的阿里云 OSS 配置补在这里：
+aliyun:
+  oss:
+    endpoint: oss-cn-hangzhou.aliyuncs.com # 替换为您的真实 endpoint
+    access-key-id: your_access_key_id      # 替换为您的真实 AK
+    access-key-secret: your_access_key_secret # 替换为您的真实 SK
+    bucket-name: wuyi-mall-bucket          # 替换为您在 OSS 创建的 Bucket 名称

@@ -22,6 +22,10 @@
     "@eslint/js": "^9.39.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+<<<<<<< HEAD
+=======
+    "@vitejs/plugin-react": "^6.0.1",
+>>>>>>> 86d584441656c1ee113d39e2654666180ef38e13
     "@vitejs/plugin-react-swc": "^4.2.2",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
