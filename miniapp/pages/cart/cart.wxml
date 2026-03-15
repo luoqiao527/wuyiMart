@@ -1,0 +1,48 @@
+<view class="cart-container">
+  <!-- 空购物车 -->
+  <view class="empty-cart" wx:if="{{!isLoggedIn || cartList.length === 0}}">
+    <image class="empty-icon" src="/images/empty-cart.png" mode="aspectFit"/>
+    <text class="empty-text">{{isLoggedIn ? '购物车是空的' : '请先登录'}}</text>
+    <button class="btn btn-primary" bindtap="{{isLoggedIn ? 'goShopping' : 'goToLogin'}}">
+      {{isLoggedIn ? '去逛逛' : '立即登录'}}
+    </button>
+  </view>
+
+  <!-- 购物车列表 -->
+  <block wx:else>
+    <scroll-view class="cart-list" scroll-y="true">
+      <view class="cart-item" wx:for="{{cartList}}" wx:key="id">
+        <checkbox class="item-check" checked="{{item.selected}}" bindtap="toggleSelect" data-index="{{index}}"/>
+        <image class="item-image" src="{{item.image}}" mode="aspectFill" bindtap="goToDetail" data-id="{{item.productId}}"/>
+        <view class="item-info">
+          <text class="item-title text-ellipsis-2" bindtap="goToDetail" data-id="{{item.productId}}">{{item.title}}</text>
+          <text class="item-spec" wx:if="{{item.spec}}">{{item.spec}}</text>
+          <view class="item-bottom">
+            <text class="item-price price">{{item.price}}</text>
+            <view class="quantity-control">
+              <text class="control-btn {{item.quantity <= 1 ? 'disabled' : ''}}" bindtap="decreaseQuantity" data-index="{{index}}">-</text>
+              <input class="quantity-input" type="number" value="{{item.quantity}}" bindblur="updateQuantity" data-index="{{index}}"/>
+              <text class="control-btn" bindtap="increaseQuantity" data-index="{{index}}">+</text>
+            </view>
+          </view>
+        </view>
+        <text class="delete-btn" bindtap="deleteItem" data-index="{{index}}">🗑️</text>
+      </view>
+    </scroll-view>
+
+    <!-- 底部结算栏 -->
+    <view class="cart-footer safe-area-bottom">
+      <view class="footer-left">
+        <checkbox checked="{{isAllSelected}}" bindtap="toggleSelectAll"/>
+        <text class="select-all">全选</text>
+        <view class="total-price">
+          <text class="total-label">合计:</text>
+          <text class="price">{{totalPrice}}</text>
+        </view>
+      </view>
+      <button class="btn btn-primary settle-btn" bindtap="settle">
+        结算({{selectedCount}})
+      </button>
+    </view>
+  </block>
+</view>

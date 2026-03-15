@@ -1,0 +1,154 @@
+<view class="product-detail-container">
+  <!-- 商品轮播图 -->
+  <swiper class="product-swiper" indicator-dots="true" autoplay="true" interval="3000" duration="500" circular="true">
+    <swiper-item wx:for="{{product.images}}" wx:key="*this" bindtap="previewImage" data-index="{{index}}">
+      <image class="product-image" src="{{item}}" mode="aspectFill"/>
+    </swiper-item>
+  </swiper>
+
+  <!-- 拍卖信息（如果是拍卖商品） -->
+  <view class="auction-info" wx:if="{{product.saleStatus === 1}}">
+    <view class="auction-status">
+      <text class="status-icon">🔨</text>
+      <text class="status-text">竞拍中</text>
+    </view>
+    <view class="auction-countdown">
+      <text class="countdown-label">距结束</text>
+      <text class="countdown-time">{{countdown}}</text>
+    </view>
+  </view>
+
+  <!-- 价格信息 -->
+  <view class="price-section">
+    <view class="current-price">
+      <text class="price-symbol">¥</text>
+      <text class="price-value">{{product.currentPrice || product.startPrice}}</text>
+    </view>
+    <view class="price-info" wx:if="{{product.saleStatus === 1}}">
+      <text class="start-price">起拍价 ¥{{product.startPrice}}</text>
+      <text class="increment">加价幅度 ¥{{product.increment}}</text>
+    </view>
+  </view>
+
+  <!-- 商品标题 -->
+  <view class="title-section">
+    <text class="product-title">{{product.title}}</text>
+    <view class="product-tags">
+      <text class="tag tag-primary" wx:if="{{product.saleStatus === 1}}">拍卖</text>
+      <text class="tag tag-success">保真</text>
+      <text class="tag tag-warning">包邮</text>
+    </view>
+  </view>
+
+  <!-- 商品统计 -->
+  <view class="stats-section">
+    <view class="stat-item">
+      <text class="stat-value">{{product.bidCount || 0}}</text>
+      <text class="stat-label">次出价</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-value">{{product.viewCount || 0}}</text>
+      <text class="stat-label">次浏览</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-value">{{product.favoriteCount || 0}}</text>
+      <text class="stat-label">人关注</text>
+    </view>
+  </view>
+
+  <!-- 商品详情 -->
+  <view class="detail-section">
+    <view class="section-title">商品详情</view>
+    <view class="detail-content">
+      <rich-text nodes="{{product.description}}"></rich-text>
+    </view>
+  </view>
+
+  <!-- 出价记录（拍卖商品） -->
+  <view class="bid-section" wx:if="{{product.saleStatus === 1 && bidRecords.length > 0}}">
+    <view class="section-title">出价记录</view>
+    <view class="bid-list">
+      <view class="bid-item" wx:for="{{bidRecords}}" wx:key="id">
+        <view class="bid-user">
+          <image class="user-avatar" src="{{item.avatar || '/images/default-avatar.png'}}"/>
+          <text class="user-name">{{item.username}}</text>
+        </view>
+        <view class="bid-info">
+          <text class="bid-price">¥{{item.amount}}</text>
+          <text class="bid-time">{{item.time}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar safe-area-bottom">
+    <view class="action-icons">
+      <view class="action-item" bindtap="goToHome">
+        <text class="action-icon">🏠</text>
+        <text class="action-text">首页</text>
+      </view>
+      <view class="action-item" bindtap="toggleFavorite">
+        <text class="action-icon">{{isFavorited ? '❤️' : '🤍'}}</text>
+        <text class="action-text">{{isFavorited ? '已收藏' : '收藏'}}</text>
+      </view>
+      <view class="action-item" bindtap="contactMerchant">
+        <text class="action-icon">💬</text>
+        <text class="action-text">咨询</text>
+      </view>
+    </view>
+    <view class="action-buttons">
+      <button 
+        class="btn btn-primary action-btn" 
+        bindtap="placeBid"
+        wx:if="{{product.saleStatus === 1}}"
+      >
+        出价竞拍
+      </button>
+      <button 
+        class="btn btn-primary action-btn disabled" 
+        wx:if="{{product.saleStatus === 2}}"
+        disabled
+      >
+        已截拍
+      </button>
+    </view>
+  </view>
+
+  <!-- 出价弹窗 -->
+  <view class="bid-popup" wx:if="{{showBidPopup}}" bindtap="closeBidPopup">
+    <view class="popup-content" catchtap="preventClose">
+      <view class="popup-header">
+        <text class="popup-title">出价竞拍</text>
+        <text class="popup-close" bindtap="closeBidPopup">×</text>
+      </view>
+      <view class="popup-body">
+        <view class="bid-info-row">
+          <text class="info-label">当前最高价</text>
+          <text class="info-value price">¥{{product.currentPrice}}</text>
+        </view>
+        <view class="bid-info-row">
+          <text class="info-label">加价幅度</text>
+          <text class="info-value">¥{{product.increment}}</text>
+        </view>
+        <view class="bid-input-row">
+          <text class="input-label">我的出价</text>
+          <view class="input-wrap">
+            <text class="input-symbol">¥</text>
+            <input 
+              class="bid-input" 
+              type="digit" 
+              value="{{bidAmount}}"
+              bindinput="onBidInput"
+            />
+          </view>
+        </view>
+        <text class="bid-tip">出价不能低于 ¥{{minBidAmount}}</text>
+      </view>
+      <view class="popup-footer">
+        <button class="btn btn-default" bindtap="closeBidPopup">取消</button>
+        <button class="btn btn-primary" bindtap="confirmBid" loading="{{bidding}}">确认出价</button>
+      </view>
+    </view>
+  </view>
+</view>

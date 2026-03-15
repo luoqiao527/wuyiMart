@@ -1,0 +1,54 @@
+<view class="category-container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input" bindtap="goToSearch">
+      <text class="search-icon">🔍</text>
+      <text class="search-placeholder">搜索商品</text>
+    </view>
+  </view>
+
+  <view class="category-content">
+    <!-- 左侧分类导航 -->
+    <scroll-view class="category-nav" scroll-y="true">
+      <view 
+        class="nav-item {{currentCategory === item.id ? 'active' : ''}}" 
+        wx:for="{{categories}}" 
+        wx:key="id"
+        bindtap="selectCategory"
+        data-id="{{item.id}}"
+      >
+        <text class="nav-text">{{item.name}}</text>
+      </view>
+    </scroll-view>
+
+    <!-- 右侧商品列表 -->
+    <scroll-view class="product-content" scroll-y="true" bindscrolltolower="loadMore">
+      <!-- 分类banner -->
+      <view class="category-banner" wx:if="{{currentCategoryInfo}}">
+        <image class="banner-image" src="{{currentCategoryInfo.image || 'https://picsum.photos/500/200'}}" mode="aspectFill"/>
+        <text class="banner-title">{{currentCategoryInfo.name}}</text>
+      </view>
+
+      <!-- 商品列表 -->
+      <view class="product-grid">
+        <view class="product-item" wx:for="{{products}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+          <image class="product-image" src="{{item.images[0]}}" mode="aspectFill" lazy-load="true"/>
+          <view class="product-info">
+            <text class="product-title text-ellipsis-2">{{item.title}}</text>
+            <text class="product-price price">{{item.currentPrice}}</text>
+            <view class="product-tags" wx:if="{{item.saleStatus === 1}}">
+              <text class="tag tag-primary">竞拍中</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 加载状态 -->
+      <view class="load-status">
+        <text wx:if="{{loading}}">加载中...</text>
+        <text wx:elif="{{noMore}}">没有更多了</text>
+        <text wx:elif="{{products.length === 0}}">暂无商品</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>

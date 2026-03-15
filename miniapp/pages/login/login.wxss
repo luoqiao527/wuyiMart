@@ -1,0 +1,180 @@
+.login-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #fff 0%, #f8f8f8 100%);
+  padding: 60rpx 40rpx;
+  box-sizing: border-box;
+}
+
+/* Logo区域 */
+.logo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 80rpx;
+  padding-top: 40rpx;
+}
+
+.logo {
+  width: 160rpx;
+  height: 160rpx;
+  margin-bottom: 24rpx;
+  border-radius: 32rpx;
+  background: linear-gradient(135deg, #d81e06, #ff6b6b);
+}
+
+.app-name {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.app-slogan {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 表单区域 */
+.form-section {
+  margin-bottom: 60rpx;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx 32rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+.input-icon {
+  font-size: 36rpx;
+  margin-right: 20rpx;
+}
+
+.input-field {
+  flex: 1;
+  height: 48rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.input-field::placeholder {
+  color: #bbb;
+}
+
+.eye-icon {
+  font-size: 36rpx;
+  padding: 10rpx;
+}
+
+.login-btn {
+  margin-top: 40rpx;
+  height: 96rpx;
+  border-radius: 48rpx;
+  font-size: 34rpx;
+  font-weight: 500;
+}
+
+.action-links {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 32rpx;
+  padding: 0 16rpx;
+}
+
+.link {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.link:active {
+  color: #d81e06;
+}
+
+/* 其他登录方式 */
+.other-login {
+  margin-bottom: 60rpx;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40rpx;
+}
+
+.line {
+  flex: 1;
+  height: 2rpx;
+  background: #e5e5e5;
+}
+
+.divider .text {
+  padding: 0 24rpx;
+  font-size: 26rpx;
+  color: #999;
+}
+
+.login-methods {
+  display: flex;
+  justify-content: center;
+}
+
+.method-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.method-item::after {
+  border: none;
+}
+
+.method-icon {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+  margin-bottom: 16rpx;
+}
+
+.method-icon.wx {
+  background: #07c160;
+}
+
+.method-text {
+  font-size: 26rpx;
+  color: #666;
+}
+
+/* 协议 */
+.agreement {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 20rpx;
+}
+
+.agreement checkbox {
+  transform: scale(0.7);
+  margin-right: 8rpx;
+}
+
+.agreement-text {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.6;
+}
+
+.agreement-text .link {
+  color: #d81e06;
+}

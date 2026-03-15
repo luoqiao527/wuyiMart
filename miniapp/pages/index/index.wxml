@@ -1,0 +1,81 @@
+<view class="index-container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input" bindtap="goToSearch">
+      <text class="search-icon">🔍</text>
+      <text class="search-placeholder">搜索商品</text>
+    </view>
+  </view>
+
+  <!-- 轮播图 -->
+  <swiper class="banner-swiper" indicator-dots="true" autoplay="true" interval="3000" duration="500" circular="true">
+    <swiper-item wx:for="{{banners}}" wx:key="id" bindtap="onBannerTap" data-item="{{item}}">
+      <image class="banner-image" src="{{item.image}}" mode="aspectFill"/>
+    </swiper-item>
+  </swiper>
+
+  <!-- 分类入口 -->
+  <view class="category-section">
+    <view class="category-list">
+      <view class="category-item" wx:for="{{categories}}" wx:key="id" bindtap="goToCategory" data-id="{{item.id}}">
+        <image class="category-icon" src="{{item.icon}}" mode="aspectFit"/>
+        <text class="category-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 拍卖专区入口 -->
+  <view class="auction-entry" bindtap="goToAuction">
+    <view class="auction-content">
+      <view class="auction-title">
+        <text class="title-icon">🔨</text>
+        <text class="title-text">拍卖专区</text>
+      </view>
+      <text class="auction-desc">珍品竞拍，价高者得</text>
+    </view>
+    <view class="auction-arrow">›</view>
+  </view>
+
+  <!-- 推荐商品 -->
+  <view class="recommend-section">
+    <view class="section-header">
+      <view class="header-left">
+        <view class="header-line"></view>
+        <text class="header-title">精选推荐</text>
+      </view>
+      <view class="header-more" bindtap="goToMore">
+        <text>更多</text>
+        <text class="more-arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 商品列表 -->
+    <view class="product-list">
+      <view class="product-item" wx:for="{{products}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+        <view class="product-image-wrap">
+          <image class="product-image" src="{{item.images[0]}}" mode="aspectFill" lazy-load="true"/>
+          <view class="product-tag" wx:if="{{item.saleStatus === 2}}">已截拍</view>
+          <view class="product-tag bidding" wx:if="{{item.saleStatus === 1}}">竞拍中</view>
+        </view>
+        <view class="product-info">
+          <text class="product-title text-ellipsis-2">{{item.title}}</text>
+          <view class="product-price-row">
+            <text class="product-price price">{{item.currentPrice || item.startPrice}}</text>
+            <text class="product-original price-original" wx:if="{{item.originalPrice}}">{{item.originalPrice}}</text>
+          </view>
+          <view class="product-meta">
+            <text class="product-bids" wx:if="{{item.bidCount}}">{{item.bidCount}}次出价</text>
+            <text class="product-time" wx:if="{{item.endTime}}">{{item.countdown}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载状态 -->
+    <view class="load-status">
+      <text wx:if="{{loading}}">加载中...</text>
+      <text wx:elif="{{noMore}}">没有更多了</text>
+      <text wx:elif="{{products.length === 0}}">暂无商品</text>
+    </view>
+  </view>
+</view>

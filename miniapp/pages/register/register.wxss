@@ -1,0 +1,107 @@
+.register-container {
+  min-height: 100vh;
+  background: #f8f8f8;
+  padding-bottom: 40rpx;
+}
+
+/* 注册类型切换 */
+.register-type {
+  display: flex;
+  background: #fff;
+  padding: 20rpx 40rpx;
+  margin-bottom: 20rpx;
+}
+
+.type-item {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 0;
+  font-size: 30rpx;
+  color: #666;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.type-item.active {
+  color: #d81e06;
+  font-weight: 500;
+}
+
+.type-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60rpx;
+  height: 4rpx;
+  background: #d81e06;
+  border-radius: 2rpx;
+}
+
+/* 表单区域 */
+.form-section {
+  background: #fff;
+  padding: 0 30rpx;
+}
+
+.form-item {
+  display: flex;
+  align-items: center;
+  padding: 30rpx 0;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.form-item:last-child {
+  border-bottom: none;
+}
+
+.label {
+  width: 160rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.input {
+  flex: 1;
+  height: 48rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.input::placeholder {
+  color: #bbb;
+}
+
+/* 注册按钮 */
+.register-btn {
+  margin: 40rpx 30rpx;
+  height: 96rpx;
+  border-radius: 48rpx;
+  font-size: 34rpx;
+  font-weight: 500;
+}
+
+/* 提示信息 */
+.tips {
+  padding: 0 40rpx;
+  margin-bottom: 40rpx;
+}
+
+.tip-text {
+  font-size: 26rpx;
+  color: #999;
+  line-height: 1.6;
+}
+
+/* 已有账号 */
+.has-account {
+  text-align: center;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.has-account .link {
+  color: #d81e06;
+  margin-left: 8rpx;
+}

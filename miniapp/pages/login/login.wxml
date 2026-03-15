@@ -1,0 +1,72 @@
+<view class="login-container">
+  <!-- Logo区域 -->
+  <view class="logo-section">
+    <image class="logo" src="/images/logo.png" mode="aspectFit"></image>
+    <text class="app-name">无艺商城</text>
+    <text class="app-slogan">发现艺术之美</text>
+  </view>
+  
+  <!-- 登录表单 -->
+  <view class="form-section">
+    <view class="input-group">
+      <text class="input-icon">👤</text>
+      <input 
+        class="input-field" 
+        type="text" 
+        placeholder="请输入用户名" 
+        value="{{username}}"
+        bindinput="onUsernameInput"
+      />
+    </view>
+    
+    <view class="input-group">
+      <text class="input-icon">🔒</text>
+      <input 
+        class="input-field" 
+        type="{{showPassword ? 'text' : 'password'}}" 
+        placeholder="请输入密码" 
+        value="{{password}}"
+        bindinput="onPasswordInput"
+      />
+      <text class="eye-icon" bindtap="togglePasswordVisibility">
+        {{showPassword ? '🙈' : '👁️'}}
+      </text>
+    </view>
+    
+    <button class="btn btn-primary login-btn" bindtap="handleLogin" loading="{{loading}}">
+      登录
+    </button>
+    
+    <view class="action-links">
+      <text class="link" bindtap="goToRegister">注册账号</text>
+      <text class="link" bindtap="goToForgotPassword">忘记密码?</text>
+    </view>
+  </view>
+  
+  <!-- 其他登录方式 -->
+  <view class="other-login">
+    <view class="divider">
+      <view class="line"></view>
+      <text class="text">其他登录方式</text>
+      <view class="line"></view>
+    </view>
+    
+    <view class="login-methods">
+      <button class="method-item" open-type="getPhoneNumber" bindgetphonenumber="onPhoneLogin">
+        <view class="method-icon wx">📱</view>
+        <text class="method-text">微信一键登录</text>
+      </button>
+    </view>
+  </view>
+  
+  <!-- 协议 -->
+  <view class="agreement">
+    <checkbox checked="{{agreed}}" bindtap="toggleAgreement"/>
+    <text class="agreement-text">
+      登录即代表您同意
+      <text class="link" bindtap="showUserAgreement">《用户协议》</text>
+      和
+      <text class="link" bindtap="showPrivacyPolicy">《隐私政策》</text>
+    </text>
+  </view>
+</view>

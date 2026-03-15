@@ -1,0 +1,40 @@
+<view class="favorites-container">
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!isLoggedIn || favorites.length === 0}}">
+    <image class="empty-icon" src="/images/empty-favorites.png" mode="aspectFit"/>
+    <text class="empty-text">{{isLoggedIn ? '暂无收藏商品' : '请先登录'}}</text>
+    <button class="btn btn-primary" bindtap="{{isLoggedIn ? 'goShopping' : 'goToLogin'}}">
+      {{isLoggedIn ? '去逛逛' : '立即登录'}}
+    </button>
+  </view>
+
+  <!-- 收藏列表 -->
+  <scroll-view class="favorites-list" scroll-y="true" bindscrolltolower="loadMore" wx:else>
+    <view class="favorite-item" wx:for="{{favorites}}" wx:key="id">
+      <view class="item-content" bindtap="goToDetail" data-id="{{item.productId}}">
+        <image class="item-image" src="{{item.productImage}}" mode="aspectFill" lazy-load="true"/>
+        <view class="item-info">
+          <text class="item-title text-ellipsis-2">{{item.productTitle}}</text>
+          <view class="item-price-row">
+            <text class="item-price price">{{item.currentPrice}}</text>
+            <text class="item-original price-original" wx:if="{{item.originalPrice}}">{{item.originalPrice}}</text>
+          </view>
+          <view class="item-tags">
+            <text class="tag tag-primary" wx:if="{{item.isAuction}}">拍卖</text>
+            <text class="tag tag-success">保真</text>
+          </view>
+        </view>
+      </view>
+      <view class="item-actions">
+        <text class="action-btn" bindtap="removeFavorite" data-id="{{item.productId}}" data-index="{{index}}">取消收藏</text>
+        <text class="action-btn primary" bindtap="goToDetail" data-id="{{item.productId}}">查看详情</text>
+      </view>
+    </view>
+
+    <!-- 加载状态 -->
+    <view class="load-status">
+      <text wx:if="{{loading}}">加载中...</text>
+      <text wx:elif="{{noMore}}">没有更多了</text>
+    </view>
+  </scroll-view>
+</view>

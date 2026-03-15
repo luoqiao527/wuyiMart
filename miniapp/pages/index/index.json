@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "无艺商城",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#f8f8f8",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50
+}
