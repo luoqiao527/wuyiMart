@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: wuyimart-sqlserver
+    ports:
+      - "1433:1433"
+    environment:
+      - SA_PASSWORD=${DB_PASSWORD:-Password123!}
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Express
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+      - ./init-db.sh:/init-db.sh
+      - ./test-data.sql:/test-data.sql
+    restart: always
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ${DB_PASSWORD:-Password123!} -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  sqlserver-init:
+    image: mcr.microsoft.com/mssql-tools
+    container_name: wuyimart-sqlserver-init
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    volumes:
+      - ./init-db.sh:/init-db.sh
+      - ./test-data.sql:/test-data.sql
+    environment:
+      - DB_PASSWORD=${DB_PASSWORD:-Password123!}
+    entrypoint: /bin/bash /init-db.sh
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: wuyimart-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:sqlserver://sqlserver:1433;databaseName=wuyi_mall;encrypt=false;trustServerCertificate=true
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD:-Password123!}
+    depends_on:
+      sqlserver-init:
+        condition: service_completed_successfully
+    restart: on-failure
+
+  frontend:
+    build:
+      context: ./frontend/my-shop
+      dockerfile: Dockerfile
+    container_name: wuyimart-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: on-failure
+
+volumes:
+  sqlserver-data:
